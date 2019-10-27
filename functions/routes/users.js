@@ -8,11 +8,11 @@ router.get('/', (req, res) => {
 	return admin.database().ref('/users').on(
 		'value',
 		(snapshot) => {
-			return res.status(200).send(snapshot.val());
+			return res.status(200).json(snapshot.val());
 		},
 		(error) => {
 			console.error(error);
-			return res.status(500).send('Oh no! Error: ' + error);
+			return res.status(500).json({ error: 'Internal server error' });
 		}
 	);
 });
@@ -25,11 +25,11 @@ router.post('/', (req, res) => {
 		.ref('/users')
 		.push(newUser)
 		.then(() => {
-			return res.status(201).send(newUser);
+			return res.status(201).json(newUser);
 		})
 		.catch((error) => {
 			console.error(error);
-			return res.status(500).send('Oh no! Error: ' + error);
+			return res.status(500).json({ error: 'Internal server error' });
 		});
 });
 
