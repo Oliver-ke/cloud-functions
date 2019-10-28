@@ -19,11 +19,12 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
 	const newUser = req.body;
-	newUser.id = uuidv5('https://envyuser-f1981.firebaseapp.com', uuidv5.URL);
+	const id = uuidv5('https://envyuser-f1981.firebaseapp.com', uuidv5.URL);
+	newUser.userId = id;
 	admin
 		.database()
-		.ref('/users')
-		.push(newUser)
+		.ref(`/users/${id}`)
+		.set(newUser)
 		.then(() => {
 			return res.status(201).json(newUser);
 		})
