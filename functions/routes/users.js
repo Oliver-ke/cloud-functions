@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
 	const newUser = req.body;
-	const id = uuidv5('https://envyuser-f1981.firebaseapp.com', uuidv5.URL);
+	const id = uuidv5(`https://envyuser-f1981.firebaseapp.com/user/${Date.now()}`, uuidv5.URL);
 	newUser.userId = id;
 	admin
 		.database()
